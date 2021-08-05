@@ -1,6 +1,6 @@
 # graalvm-maven-docker
 
-A docker image for [GraalVM](https://graalvm.org) built with [sdkman](https://sdkman.io) used at (SoftInstigate)[https://softinstigate.com] to run (RESTHeart)[https://restheart.org] on GraalVM.
+A docker image for [GraalVM](https://graalvm.org) built with [sdkman](https://sdkman.io) used at [SoftInstigate](https://softinstigate.com) to run [RESTHeart](https://restheart.org) on GraalVM.
 
 ## Versions ##
 
