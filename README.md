@@ -6,6 +6,8 @@ A docker image for [GraalVM](https://graalvm.org) built with [sdkman](https://sd
 
 - GraalVM: 21.1.0.r16-grl
 
+To add a new GraalVM version, just edit the JAVA_VERSION env variable in the [build action](https://github.com/SoftInstigate/graalvm-docker/blob/master/.github/workflows/docker-image.yml).
+
 ## Run Java ##
 
 ```bash
