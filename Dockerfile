@@ -2,7 +2,7 @@ FROM bitnami/minideb:stretch
 
 LABEL maintainer="SoftInstigate <info@softinstigate.com>"
 
-ARG JAVA_VERSION
+ARG JAVA_VERSION="22.1.0.r17-grl"
 
 ENV SDKMAN_DIR=/root/.sdkman
 
