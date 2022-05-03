@@ -9,7 +9,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, 'skip ci')"
     runs-on: ubuntu-20.04
     env:
-      JAVA_VERSION: "21.1.0.r16-grl"
+      JAVA_VERSION: "22.1.0.r17-grl"
 
     steps:
       - uses: actions/checkout@v2
