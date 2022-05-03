@@ -7,11 +7,6 @@ Images are automatically published on [Docker Hub](https://hub.docker.com/r/soft
 ## Versions ##
 
 - GraalVM: 22.1.0.r17-grl
-<<<<<<< HEAD
-
-To add a new GraalVM version, just edit the JAVA_VERSION env variable in the [build action](https://github.com/SoftInstigate/graalvm-docker/blob/master/.github/workflows/docker-image.yml).
-=======
->>>>>>> :arrow_up: Upgrade GraalVM to v22.1.0.r17-grl
 
 ## Run Java ##
 
