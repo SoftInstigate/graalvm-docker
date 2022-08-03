@@ -13,7 +13,7 @@ jobs:
       JAVA_VERSION: "22.2.r17-grl"
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
