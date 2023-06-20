@@ -1,4 +1,4 @@
-FROM bitnami/minideb:stretch
+FROM bitnami/minideb:latest
 
 LABEL maintainer="SoftInstigate <info@softinstigate.com>"
 
