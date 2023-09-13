@@ -22,6 +22,7 @@ RUN apt-get update \
 RUN bash -c "source "${SDKMAN_DIR}"/bin/sdkman-init.sh \
         && sdk version \
         && sdk install java "${JAVA_VERSION}" \
+        && gu install js \
         && rm -rf "${SDKMAN_DIR}"/archives/* \
         && rm -rf "${SDKMAN_DIR}"/tmp/*"
 
