@@ -24,5 +24,4 @@ jobs:
         with:
           push: true
           no-cache: false
-          build-args: JAVA_VERSION="${{ env.JAVA_VERSION }}"
-          tags: softinstigate/graalvm:latest,softinstigate/graalvm:${{ env.JAVA_VERSION }}
+          tags: softinstigate/graalvm:latest,softinstigate/graalvm:latest
