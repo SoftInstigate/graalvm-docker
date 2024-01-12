@@ -2,7 +2,7 @@ FROM bitnami/minideb:latest
 
 LABEL maintainer="SoftInstigate <info@softinstigate.com>"
 
-ARG JAVA_VERSION="17.0.8-graal"
+ARG JAVA_VERSION="17.0.9-graal"
 
 ENV SDKMAN_DIR=/root/.sdkman
 
