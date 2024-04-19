@@ -2,7 +2,7 @@ FROM bitnami/minideb:latest
 
 LABEL maintainer="SoftInstigate <info@softinstigate.com>"
 
-ARG JAVA_VERSION="17.0.9-graal"
+ARG JAVA_VERSION="21.0.2-graal"
 
 ENV SDKMAN_DIR=/root/.sdkman
 
@@ -22,7 +22,6 @@ RUN apt-get update \
 RUN bash -c "source "${SDKMAN_DIR}"/bin/sdkman-init.sh \
         && sdk version \
         && sdk install java "${JAVA_VERSION}" \
-        && gu install js \
         && rm -rf "${SDKMAN_DIR}"/archives/* \
         && rm -rf "${SDKMAN_DIR}"/tmp/*"
 
