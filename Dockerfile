@@ -1,4 +1,4 @@
-FROM bitnami/minideb:latest
+FROM debian:stable-slim
 
 LABEL maintainer="SoftInstigate <info@softinstigate.com>"
 
