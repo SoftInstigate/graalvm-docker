@@ -2,7 +2,7 @@ FROM debian:stable-slim
 
 LABEL maintainer="SoftInstigate <info@softinstigate.com>"
 
-ARG JAVA_VERSION="21.0.2-graal"
+ARG JAVA_VERSION="21.0.2-graalce"
 
 ENV SDKMAN_DIR=/root/.sdkman
 
