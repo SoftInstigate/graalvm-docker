@@ -9,7 +9,7 @@ ENV SDKMAN_DIR=/root/.sdkman
 COPY bin/entrypoint.sh /root
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl zip unzip ca-certificates locales \
+    && apt-get install -y --no-install-recommends ca-certificates curl locales unzip zip \
     && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
     && locale-gen en_US.UTF-8 \
     && apt-get -y autoremove \
@@ -18,8 +18,8 @@ RUN apt-get update \
     && echo "sdkman_auto_answer=true" > "${SDKMAN_DIR}/etc/config" \
     && echo "sdkman_auto_selfupdate=false" >> "${SDKMAN_DIR}/etc/config" \
     && echo "sdkman_insecure_ssl=true" >> "${SDKMAN_DIR}/etc/config" \
-    && chmod +x "${SDKMAN_DIR}/bin/sdkman-init.sh"
-RUN bash -c "source ${SDKMAN_DIR}/bin/sdkman-init.sh \
+    && chmod +x "${SDKMAN_DIR}/bin/sdkman-init.sh" \
+    && bash -c "source ${SDKMAN_DIR}/bin/sdkman-init.sh \
         && sdk version \
         && sdk install java ${JAVA_VERSION} \
         && rm -rf ${SDKMAN_DIR}/archives/* \
