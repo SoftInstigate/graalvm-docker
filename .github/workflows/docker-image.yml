@@ -30,8 +30,7 @@ jobs:
         with:
           platforms: |
             linux/amd64,
-            linux/arm64,
-            linux/ppc64le
+            linux/arm64
           push: true
           pull: true
           no-cache: false
