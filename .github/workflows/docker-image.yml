@@ -31,4 +31,4 @@ jobs:
             linux/s390x
           push: true
           no-cache: false
-          tags: softinstigate/graalvm:latest
+          tags: softinstigate/graalvm:latest,softinstigate/graalvm:${{ github.ref_name }}
