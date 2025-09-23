@@ -8,7 +8,7 @@ Images are automatically published on [Docker Hub](https://hub.docker.com/r/soft
 
 ## Versions ##
 
-- GraalVM: 21.0.2-graal
+- GraalVM: 25-graalce
 
 ## Run Java ##
 
