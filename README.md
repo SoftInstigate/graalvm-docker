@@ -58,7 +58,6 @@ See [Docker Hub](https://hub.docker.com/r/softinstigate/graalvm/tags) for all ta
 
 ---
 
-
 ## Details
 
 ### SDKMAN Integration
@@ -84,7 +83,6 @@ See [Docker Hub](https://hub.docker.com/r/softinstigate/graalvm/tags) for all ta
 
 - Triggers only on **tag pushes** (not regular commits)
 - Can be skipped with `[skip ci]` in commit message
-- Requires `DOCKER_USER` and `DOCKER_TOKEN` secrets in repository settings
 
 ---
 
@@ -92,7 +90,6 @@ See [Docker Hub](https://hub.docker.com/r/softinstigate/graalvm/tags) for all ta
 
 - **Multi-arch issues**: Ensure all base images support both `amd64` and `arm64`.
 - **Tagging**: `latest` always points to the most recent GraalVM version.
-- **Distroless variant**: If using `Dockerfile.distroless`, verify the base image supports all required platforms.
 
 ---
 
