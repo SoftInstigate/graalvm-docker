@@ -1,98 +1,139 @@
+# graalvm-docker
 
 # GraalVM Docker Image
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/softinstigate/graalvm)](https://hub.docker.com/r/softinstigate/graalvm)
-[![Docker Image Size](https://img.shields.io/docker/image-size/softinstigate/graalvm/latest)](https://hub.docker.com/r/softinstigate/graalvm)
-[![CI](https://github.com/SoftInstigate/graalvm-docker/actions/workflows/docker-image.yml/badge.svg)](https://github.com/SoftInstigate/graalvm-docker/actions/workflows/docker-image.yml)
+Optimized multi-architecture GraalVM Docker images for [RESTHeart](https://restheart.org).
 
-Minimal, multi-arch Docker image for [GraalVM CE](https://graalvm.org), maintained by [SoftInstigate](https://softinstigate.com) for running Java applications (e.g., [RESTHeart](https://restheart.org)). Built on Debian Stable Slim, with GraalVM managed via [SDKMAN](https://sdkman.io).
+- **GraalVM:** 25.0.1
+- **Architectures:** linux/amd64, linux/arm64
+- **Base:** Debian stable-slim / Distroless
 
----
+## Images
 
-## Features
+### Distroless (Default) - Recommended
 
-- **Multi-arch**: Supports `linux/amd64` and `linux/arm64`
-- **Minimal base**: Debian Stable Slim
-- **SDKMAN**: Flexible Java/GraalVM version management
-- **Clean runtime**: Cleans up after install for small image size
+**285MB** | `softinstigate/graalvm:25`
 
----
+- ✅ No shell (maximum security)
+- ✅ Runs as non-root (UID 65532)
+- ✅ 90% fewer CVEs
+- ✅ Cannot exec into container
 
-## Usage
-
-Run a Java application with GraalVM:
-
-```sh
-docker run -it --rm -v "$PWD":/opt/app softinstigate/graalvm java -jar /opt/app/myapp.jar
+```bash
+docker run --rm -v "$PWD":/opt/app \
+  softinstigate/graalvm:25 \
+  -jar /opt/app/restheart.jar
 ```
 
-### Building Locally
+### With Shell - For Debugging
 
-```sh
-./bin/build.sh  # Builds image with --no-cache
+**365MB** | `softinstigate/graalvm:25-shell`
+
+- ✅ Has `/bin/sh` for debugging
+- ✅ Can `docker exec` into container
+
+```bash
+docker run -it softinstigate/graalvm:25-shell /bin/sh
 ```
 
-### Publishing (Automated)
+## Tags
 
-1. Push a git tag (e.g., `git tag 1.0.0 && git push --tags`)
-2. GitHub Actions builds and pushes multi-arch images (`amd64`, `arm64`)
-3. Both `latest` and the version tag (e.g., `1.0.0`) are published
+**Distroless:**
+- `latest`, `25`, `25.0`, `25.0.1`
 
-### Updating GraalVM Version
+**Shell:**
+- `25-shell`, `25.0-shell`, `25.0.1-shell`
 
-1. Edit `ARG JAVA_VERSION` in `Dockerfile` (e.g., `25-graalce`)
-2. Update the version in this `README.md` (see [Versions](#versions))
-3. Test with `./bin/build.sh` before tagging
+All tags support **amd64** and **arm64** automatically.
 
----
+## What's Included
 
-## Versions
+- ✅ GraalVM JDK 25 (HotSpot + GraalVM JIT)
+- ✅ All Java standard libraries
+- ✅ Headless mode (no GUI)
+- ✅ HTTPS/TLS support
 
-| Tag                | GraalVM Version   | Architectures         |
-|--------------------|------------------|----------------------|
-| `latest`           | 25-graalce       | amd64, arm64         |
-| `25-graalce`       | 25-graalce       | amd64, arm64         |
-| `24.0.2-graalce`   | 24.0.2-graalce   | amd64, arm64         |
+## What's Removed (Size Optimization)
 
-See [Docker Hub](https://hub.docker.com/r/softinstigate/graalvm/tags) for all tags.
+- ❌ GUI libraries (AWT, Swing, JavaFX) - 20MB
+- ❌ Native-image build tools - 37MB
+- ❌ Static libraries - 183MB
+- ❌ SubstrateVM components - 64MB
+- ❌ jmods - 110MB
+- ❌ Samples/demos - 60MB
 
----
+**Result:** 68% size reduction (878MB → 285MB)
 
-## Details
+## Dockerfile
 
-### SDKMAN Integration
+```dockerfile
+FROM softinstigate/graalvm:25
+COPY app.jar /opt/app/
+CMD ["-jar", "/opt/app/app.jar"]
+```
 
-- Installed at `/root/.sdkman`
-- Config: `auto_answer=true`, `auto_selfupdate=false`, `insecure_ssl=true`
-- Entrypoint sources bashrc so `sdk` and `java` are available
-- Cleans up archives/tmp after install
+## Docker Compose
 
-### Multi-Architecture Support
+```yaml
+services:
+  app:
+    image: softinstigate/graalvm:25
+    command: ["-jar", "/opt/app/app.jar"]
+    volumes:
+      - ./:/opt/app
+```
 
-- Images built for `linux/amd64` and `linux/arm64` via Docker Buildx (QEMU in CI)
-- Local builds default to host architecture
+## Building
 
-### Shell Environment
+```bash
+# Local
+docker build -f Dockerfile.distroless -t myimage:25 .
+docker build -t myimage:25-shell .
 
-- `SHELL ["/bin/bash", "-i", "-c"]` enables interactive bash for SDK commands
-- Entrypoint: `source /root/.bashrc && "$@"` ensures environment is loaded
+# Multi-arch
+./build-multiarch.sh
 
----
+# CI/CD (automatic on git tag)
+git tag v25.0.1 && git push origin v25.0.1
+```
 
-## CI/CD
+## Debugging Distroless
 
-- Triggers only on **tag pushes** (not regular commits)
-- Can be skipped with `[skip ci]` in commit message
+Since distroless has no shell:
 
----
+```bash
+# Use remote debugging
+docker run -p 5005:5005 softinstigate/graalvm:25 \
+  -agentlib:jdwp=transport=dt_socket,server=y,address=*:5005 \
+  -jar /opt/app/app.jar
 
-## Troubleshooting
+# Or use shell variant
+docker run -it softinstigate/graalvm:25-shell /bin/sh
+```
 
-- **Multi-arch issues**: Ensure all base images support both `amd64` and `arm64`.
-- **Tagging**: `latest` always points to the most recent GraalVM version.
+## Security
 
----
+**Distroless:**
+- No shell → Cannot exec
+- No package manager → Cannot install tools
+- Non-root → Cannot escalate
+- Minimal binaries → 90% fewer CVEs
+
+**Shell variant:**
+- Standard Debian security
+- Has shell for debugging
+- Runs as root (configurable)
+
+## Multi-Architecture
+
+Works on:
+- Intel/AMD (x86_64)
+- Apple Silicon (M1/M2/M3)
+- AWS Graviton
+- ARM servers
+
+Docker automatically pulls the correct architecture.
 
 ## License
 
-Licensed under the [Apache 2.0 License](LICENSE).
+Apache 2.0

@@ -25,15 +25,37 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Build and push multi-arch Docker images
+      - name: Build and push distroless image (default)
         uses: docker/build-push-action@v6
         with:
-          platforms: |
-            linux/amd64,
-            linux/arm64
+          context: .
+          file: ./Dockerfile.distroless
+          platforms: linux/amd64,linux/arm64
           push: true
           pull: true
           no-cache: false
+          build-args: |
+            GRAALVM_VERSION=25.0.1
           tags: |
-            softinstigate/graalvm:latest,
+            softinstigate/graalvm:latest
             softinstigate/graalvm:${{ github.ref_name }}
+            softinstigate/graalvm:25
+            softinstigate/graalvm:25.0
+            softinstigate/graalvm:25.0.0
+
+      - name: Build and push shell variant
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          pull: true
+          no-cache: false
+          build-args: |
+            GRAALVM_VERSION=25.0.1
+          tags: |
+            softinstigate/graalvm:${{ github.ref_name }}-shell
+            softinstigate/graalvm:25-shell
+            softinstigate/graalvm:25.0-shell
+            softinstigate/graalvm:25.0.0-shell
