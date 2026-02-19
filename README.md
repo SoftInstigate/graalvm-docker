@@ -4,7 +4,7 @@
 
 Optimized multi-architecture GraalVM Docker images for [RESTHeart](https://restheart.org).
 
-- **GraalVM:** 25.0.1
+- **GraalVM:** 25.0.2
 - **Architectures:** linux/amd64, linux/arm64
 - **Base:** Debian stable-slim / Distroless
 
@@ -39,10 +39,10 @@ docker run -it softinstigate/graalvm:25-shell /bin/sh
 ## Tags
 
 **Distroless:**
-- `latest`, `25`, `25.0`, `25.0.1`
+- `latest`, `25`, `25.0`, `25.0.2`
 
 **Shell:**
-- `25-shell`, `25.0-shell`, `25.0.1-shell`
+- `25-shell`, `25.0-shell`, `25.0.2-shell`
 
 All tags support **amd64** and **arm64** automatically.
 
@@ -94,7 +94,7 @@ docker build -t myimage:25-shell .
 ./build-multiarch.sh
 
 # CI/CD (automatic on git tag)
-git tag v25.0.1 && git push origin v25.0.1
+git tag v25.0.2 && git push origin v25.0.2
 ```
 
 ## Debugging Distroless
