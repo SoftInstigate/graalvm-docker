@@ -9,6 +9,8 @@ jobs:
   build:
     if: "!contains(github.event.head_commit.message, 'skip ci')"
     runs-on: ubuntu-22.04
+    env:
+      GRAALVM_VERSION: 25.0.1
 
     steps:
       - uses: actions/checkout@v4
@@ -28,7 +30,7 @@ jobs:
       - name: Extract version components
         id: version
         run: |
-          VERSION="25.0.1"
+          VERSION="${{ env.GRAALVM_VERSION }}"
           MAJOR=$(echo $VERSION | cut -d. -f1)
           MINOR=$(echo $VERSION | cut -d. -f1-2)
           echo "major=$MAJOR" >> $GITHUB_OUTPUT
@@ -45,7 +47,7 @@ jobs:
           pull: true
           no-cache: false
           build-args: |
-            GRAALVM_VERSION=25.0.1
+            GRAALVM_VERSION=${{ env.GRAALVM_VERSION }}
           tags: |
             softinstigate/graalvm:latest
             softinstigate/graalvm:${{ github.ref_name }}
@@ -63,7 +65,7 @@ jobs:
           pull: true
           no-cache: false
           build-args: |
-            GRAALVM_VERSION=25.0.1
+            GRAALVM_VERSION=${{ env.GRAALVM_VERSION }}
           tags: |
             softinstigate/graalvm:${{ github.ref_name }}-shell
             softinstigate/graalvm:${{ steps.version.outputs.major }}-shell
