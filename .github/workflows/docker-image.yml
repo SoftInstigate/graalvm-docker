@@ -25,6 +25,16 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
+      - name: Extract version components
+        id: version
+        run: |
+          VERSION="25.0.1"
+          MAJOR=$(echo $VERSION | cut -d. -f1)
+          MINOR=$(echo $VERSION | cut -d. -f1-2)
+          echo "major=$MAJOR" >> $GITHUB_OUTPUT
+          echo "minor=$MINOR" >> $GITHUB_OUTPUT
+          echo "full=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Build and push distroless image (default)
         uses: docker/build-push-action@v6
         with:
@@ -39,9 +49,9 @@ jobs:
           tags: |
             softinstigate/graalvm:latest
             softinstigate/graalvm:${{ github.ref_name }}
-            softinstigate/graalvm:25
-            softinstigate/graalvm:25.0
-            softinstigate/graalvm:25.0.0
+            softinstigate/graalvm:${{ steps.version.outputs.major }}
+            softinstigate/graalvm:${{ steps.version.outputs.minor }}
+            softinstigate/graalvm:${{ steps.version.outputs.full }}
 
       - name: Build and push shell variant
         uses: docker/build-push-action@v6
@@ -56,6 +66,6 @@ jobs:
             GRAALVM_VERSION=25.0.1
           tags: |
             softinstigate/graalvm:${{ github.ref_name }}-shell
-            softinstigate/graalvm:25-shell
-            softinstigate/graalvm:25.0-shell
-            softinstigate/graalvm:25.0.0-shell
+            softinstigate/graalvm:${{ steps.version.outputs.major }}-shell
+            softinstigate/graalvm:${{ steps.version.outputs.minor }}-shell
+            softinstigate/graalvm:${{ steps.version.outputs.full }}-shell
