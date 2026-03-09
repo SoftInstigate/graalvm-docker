@@ -47,7 +47,6 @@ RUN cd /opt/graalvm \
     include \
   && cd lib \
   && rm -rf \
-    libawt*.so \
     libjavafx*.so \
     libprism*.so \
     libglass*.so \
@@ -55,10 +54,6 @@ RUN cd /opt/graalvm \
     libjfx*.so \
     libgstreamer*.so \
     libsplashscreen.so \
-    libjavajpeg.so \
-    libfontmanager.so \
-    liblcms.so \
-    libmlib_image.so \
     libnative-image*.so \
     ct.sym \
     2>/dev/null || true \
