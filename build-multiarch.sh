@@ -6,6 +6,9 @@ set -e
 
 REGISTRY="${REGISTRY:-softinstigate/graalvm}"
 VERSION="${VERSION:-25}"
+GRAALVM_VERSION="${GRAALVM_VERSION:-25.1.3}"
+GRAALVM_RELEASE_TAG="${GRAALVM_RELEASE_TAG:-graal-25.1.3}"
+GRAALVM_ARCHIVE_VERSION="${GRAALVM_ARCHIVE_VERSION:-25i1-25.0.3}"
 PLATFORMS="linux/amd64,linux/arm64"
 
 echo "╔═══════════════════════════════════════════════════════════════╗"
@@ -14,6 +17,9 @@ echo "╚═══════════════════════�
 echo ""
 echo "Registry: ${REGISTRY}"
 echo "Version:  ${VERSION}"
+echo "GraalVM:  ${GRAALVM_VERSION}"
+echo "Release:  ${GRAALVM_RELEASE_TAG}"
+echo "Archive:  ${GRAALVM_ARCHIVE_VERSION}"
 echo "Platforms: ${PLATFORMS}"
 echo ""
 
@@ -54,6 +60,9 @@ build_image() {
     docker buildx build \
         --platform "${PLATFORMS}" \
         --file "${dockerfile}" \
+        --build-arg "GRAALVM_VERSION=${GRAALVM_VERSION}" \
+        --build-arg "GRAALVM_RELEASE_TAG=${GRAALVM_RELEASE_TAG}" \
+        --build-arg "GRAALVM_ARCHIVE_VERSION=${GRAALVM_ARCHIVE_VERSION}" \
         --tag "${REGISTRY}:${VERSION}${tag_suffix}" \
         --tag "${REGISTRY}:latest${tag_suffix}" \
         --push \

@@ -7,6 +7,8 @@
 FROM debian:stable-slim AS downloader
 
 ARG GRAALVM_VERSION=25.1.3
+ARG GRAALVM_RELEASE_TAG=graal-25.1.3
+ARG GRAALVM_ARCHIVE_VERSION=25i1-25.0.3
 ARG TARGETARCH
 
 WORKDIR /tmp
@@ -26,7 +28,7 @@ RUN apt-get update \
 
 # Download and extract GraalVM directly
 RUN GRAALVM_ARCH=$(cat /tmp/graalvm_arch) \
-  && curl -fsSL "https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-${GRAALVM_VERSION}/graalvm-community-jdk-${GRAALVM_VERSION}_${GRAALVM_ARCH}_bin.tar.gz" \
+  && curl -fsSL "https://github.com/graalvm/graalvm-ce-builds/releases/download/${GRAALVM_RELEASE_TAG}/graalvm-community-jdk-${GRAALVM_ARCHIVE_VERSION}_${GRAALVM_ARCH}_bin.tar.gz" \
     -o graalvm.tar.gz \
   && mkdir -p /opt/graalvm \
   && tar -xzf graalvm.tar.gz -C /opt/graalvm --strip-components=1 \

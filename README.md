@@ -142,10 +142,11 @@ Works on Intel/AMD (x86_64), Apple Silicon (M1/M2/M3/M4), AWS Graviton, and ARM 
 
 ## Updating GraalVM Version
 
-1. Set `GRAALVM_VERSION` in [`.github/workflows/docker-image.yml`](.github/workflows/docker-image.yml)
-2. Update the version in this `README.md`
-3. Test locally: `docker build -f Dockerfile.distroless .`
-4. Tag and push: `git tag 25.1.3-graalce && git push origin 25.1.3-graalce`
+1. Set `GRAALVM_VERSION`, `GRAALVM_RELEASE_TAG`, and `GRAALVM_ARCHIVE_VERSION` in [`.github/workflows/docker-image.yml`](.github/workflows/docker-image.yml)
+2. Update the same values in `Dockerfile` and `Dockerfile.distroless`
+3. Update the version in this `README.md`
+4. Test locally: `docker build -f Dockerfile.distroless .`
+5. Tag and push: `git tag 25.1.3-graalce && git push origin 25.1.3-graalce`
 
 ## License
 
