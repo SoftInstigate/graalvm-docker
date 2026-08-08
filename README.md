@@ -49,8 +49,8 @@ All tags support **amd64** and **arm64** automatically.
 
 | Variant | Tags |
 |---|---|
-| Distroless | `latest`, `25`, `25.0`, `25.0.2` |
-| Shell | `25-shell`, `25.0-shell`, `25.0.2-shell` |
+| Distroless | `latest`, `25`, `25.1`, `25.1.3` |
+| Shell | `25-shell`, `25.1-shell`, `25.1.3-shell` |
 
 ## What's Included
 
@@ -109,7 +109,7 @@ docker build -t myimage:25-shell .                           # shell
 ./build-multiarch.sh
 
 # CI/CD, automatic on git tag push
-git tag v25.0.2 && git push origin v25.0.2
+git tag 25.1.3-graalce && git push origin 25.1.3-graalce
 ```
 
 The `GRAALVM_VERSION` is defined once in [`.github/workflows/docker-image.yml`](.github/workflows/docker-image.yml) and passed as a build arg to both Dockerfiles.
@@ -145,7 +145,7 @@ Works on Intel/AMD (x86_64), Apple Silicon (M1/M2/M3/M4), AWS Graviton, and ARM 
 1. Set `GRAALVM_VERSION` in [`.github/workflows/docker-image.yml`](.github/workflows/docker-image.yml)
 2. Update the version in this `README.md`
 3. Test locally: `docker build -f Dockerfile.distroless .`
-4. Tag and push: `git tag v25.0.2 && git push origin v25.0.2`
+4. Tag and push: `git tag 25.1.3-graalce && git push origin 25.1.3-graalce`
 
 ## License
 

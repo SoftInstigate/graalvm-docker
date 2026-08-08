@@ -26,11 +26,11 @@ This is a minimal Docker image builder for GraalVM CE, used by SoftInstigate to 
 
 ### Version Updates
 When updating GraalVM version:
-1. Update `GRAALVM_VERSION` in `.github/workflows/docker-image.yml` (format: `25.0.2`)
+1. Update `GRAALVM_VERSION` in `.github/workflows/docker-image.yml` (format: `25.1.3`)
 2. Workflow auto-extracts major/minor/full versions for tag generation
 3. Update version in `README.md` under "Versions" section
 4. Test build locally: `./bin/build.sh` (uses Dockerfile directly)
-5. Push git tag to trigger CI (e.g., `git tag 25.0.2 && git push --tags`)
+5. Push git tag to trigger CI (e.g., `git tag 25.1.3-graalce && git push --tags`)
 
 ## Project-Specific Conventions
 

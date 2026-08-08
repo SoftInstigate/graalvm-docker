@@ -4,7 +4,7 @@
 
 FROM debian:stable-slim AS downloader
 
-ARG GRAALVM_VERSION=25.0.2
+ARG GRAALVM_VERSION=25.1.3
 ARG TARGETARCH
 
 WORKDIR /tmp
